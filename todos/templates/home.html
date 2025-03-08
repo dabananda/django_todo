@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Todo App</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+<body>
+    <div class="w-1/2 mx-auto my-5">
+        <div class="flex justify-between">
+            <p class="text-3xl">DJANGO TODO APP</p>
+            <a href="{% url "add-todo" %}" class="border text-white bg-purple-600 px-5 py-2 cursor-pointer">ADD TODO</a>
+        </div>
+        <hr class="my-3">
+        <div class="my-5">
+            <div class="grid grid-cols-5 grid-gap-4 mb-2">
+                <p>Title</p>
+                <p>Description</p>
+                <p>Deadline</p>
+                <p>Status</p>
+                <p>Actions</p>
+            </div>
+            <hr>
+            <div class="divide-y divide-gray-300 my-3">
+                {% for todo in todos %}
+                    <div class="grid grid-cols-5 grid-gap-4 py-2">
+                        <p>{{todo.name}}</p>
+                        <p>{{todo.description}}</p>
+                        <p>{{todo.due_date}}</p>
+                        <p>{{todo.status}}</p>
+                        <div class="flex">
+                            <a href="{% url "update" todo.id %}" class="text-white text-sm bg-purple-600 rounded px-2 py-1 cursor-pointer me-1">EDIT</a>
+                            <form action="{% url "delete" todo.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="text-white text-sm bg-purple-600 rounded px-2 py-1 cursor-pointer">DELETE</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

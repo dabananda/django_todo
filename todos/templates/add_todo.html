@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Todo</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+  </head>
+  <body>
+    <div class="w-1/2 mx-auto py-5">
+      <p class="text-3xl text-center">Add New ToDo</p>
+      <hr class="my-3" />
+      <form method="POST">
+        {% csrf_token %}
+        {{todo_form.as_p}}
+        <button
+          type="submit"
+          class="border text-white bg-purple-600 px-5 py-2 cursor-pointer"
+        >
+          CREATE
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
